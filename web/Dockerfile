@@ -1,10 +1,9 @@
 FROM codeyu/ubuntu-openjdk:8
-# 创建者信息
+# Creator info
 MAINTAINER zhu yu <codeyu@gmail.com>
 
-ENV DEBIAN_FRONTEND noninteractive
 # Install dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN apt-get update && \
 RUN apt-get install -y wget tar && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -30,6 +29,6 @@ RUN wget --no-cookies $TOMCAT_TGZ_URL  -O tomcat.tar.gz && \
     rm -rf webapps/ROOT/*
 ADD index.html webapps/ROOT
 EXPOSE 8080
-ENV DEBIAN_FRONTEND teletype
+
 # Launch Tomcat
 CMD ["bin/catalina.sh", "run"]
