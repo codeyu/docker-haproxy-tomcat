@@ -1,0 +1,22 @@
+web1:
+    build: ./web
+    expose:
+        - 8080
+web2:
+    build: ./web
+    expose:
+        - 8080
+haproxy:
+    image: haproxy:latest
+    volumes:
+        - ./haproxy:/haproxy-override
+        - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    links:
+        - web1
+        - web2
+    ports:
+        - "88:80"
+        - "70:70"
+    expose:
+        - "80"
+        - "70"
